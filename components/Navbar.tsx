@@ -3,6 +3,7 @@ import { auth } from "@clerk/nextjs/server";
 import { SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
 import CartLink from "@/components/CartLink";
 import WishlistLink from "@/components/WishlistLink";
+import { categories } from "@/lib/products";
 
 export default async function Navbar() {
   const { userId } = await auth();
@@ -10,17 +11,23 @@ export default async function Navbar() {
   return (
     <header className="sticky top-0 z-20 bg-white shadow-sm">
       <div className="bg-indigo-700 py-1.5 text-center text-xs text-white">
-        Free shipping on orders over $50
+        Free delivery on orders over &#8377;499 &middot; Easy 30-day returns
       </div>
-      <nav className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-6 gap-y-3 px-4 py-3">
+
+      <nav className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-6 gap-y-3 px-4 py-3">
         <Link href="/" className="text-2xl font-bold tracking-tight text-indigo-700">
           My Store
         </Link>
 
-        <ul className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm font-medium">
-          <li>
-            <Link href="/" className="hover:text-indigo-600">Shop</Link>
-          </li>
+        <form action="/" method="get" className="order-last w-full md:order-none md:w-auto md:flex-1">
+          <input
+            name="q"
+            placeholder="Search for products, brands and more"
+            className="w-full rounded-md bg-gray-100 px-4 py-2 text-sm outline-none focus:bg-white focus:ring-1 focus:ring-indigo-400"
+          />
+        </form>
+
+        <ul className="ml-auto flex flex-wrap items-center gap-x-5 gap-y-2 text-sm font-medium">
           <li>
             <WishlistLink />
           </li>
@@ -52,6 +59,20 @@ export default async function Navbar() {
           )}
         </ul>
       </nav>
+
+      <div className="border-t">
+        <div className="mx-auto flex max-w-6xl gap-6 overflow-x-auto px-4 py-2 text-xs font-bold uppercase tracking-wide">
+          {categories.map((c) => (
+            <Link
+              key={c}
+              href={"/?category=" + c + "#shop"}
+              className="whitespace-nowrap py-1 hover:text-indigo-600"
+            >
+              {c}
+            </Link>
+          ))}
+        </div>
+      </div>
     </header>
   );
 }
