@@ -3,6 +3,7 @@ import { getProducts, getBrands, categories, priceRanges } from "@/lib/products"
 import { formatPrice } from "@/lib/format";
 import ProductCard from "@/components/ProductCard";
 import DealRows from "@/components/DealRows";
+import HomeSections from "@/components/HomeSections";
 
 const PAGE_SIZE = 24;
 
@@ -114,54 +115,7 @@ export default async function HomePage({ searchParams }: { searchParams: SP }) {
 
   return (
     <div className="space-y-8">
-      {!hasFilters && current === 1 && (
-        <>
-          <section className="rounded-2xl bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 px-8 py-12 text-white">
-            <p className="text-sm font-semibold uppercase tracking-widest text-indigo-100">
-              End of season sale
-            </p>
-            <h1 className="mt-2 text-4xl font-extrabold sm:text-5xl">Up to 70% OFF</h1>
-            <p className="mt-3 max-w-md text-indigo-50">
-              Fashion, footwear, electronics and home, all in one place.
-            </p>
-            <a
-              href="#shop"
-              className="mt-6 inline-block rounded-md bg-white px-6 py-3 font-bold text-indigo-700 hover:bg-indigo-50"
-            >
-              Shop now
-            </a>
-          </section>
-
-          <section className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-            <Link href="/?price=0-499#shop" className="rounded-lg bg-orange-100 p-4 text-center font-bold text-orange-700 hover:shadow">
-              Under {formatPrice(499)}
-            </Link>
-            <Link href="/?discount=50#shop" className="rounded-lg bg-pink-100 p-4 text-center font-bold text-pink-700 hover:shadow">
-              Min 50% OFF
-            </Link>
-            <Link href="/?rating=4&sort=rating#shop" className="rounded-lg bg-green-100 p-4 text-center font-bold text-green-700 hover:shadow">
-              Top rated
-            </Link>
-            <Link href="/?sort=newest#shop" className="rounded-lg bg-blue-100 p-4 text-center font-bold text-blue-700 hover:shadow">
-              New arrivals
-            </Link>
-          </section>
-
-          <section>
-            <h2 className="mb-4 text-lg font-bold uppercase tracking-wide">Shop by category</h2>
-            <div className="flex flex-wrap gap-4">
-              {categories.map((c) => (
-                <Link key={c} href={"/?category=" + c + "#shop"} className="flex w-24 flex-col items-center gap-2 text-center">
-                  <span className="flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-indigo-100 to-pink-100 text-2xl font-extrabold text-indigo-700 hover:shadow-md">
-                    {c.charAt(0)}
-                  </span>
-                  <span className="text-sm font-medium">{c}</span>
-                </Link>
-              ))}
-            </div>
-          </section>
-        </>
-      )}
+      {!hasFilters && current === 1 && <HomeSections />}
 
       {!hasFilters && current === 1 && <DealRows />}
       <section id="shop" className="scroll-mt-40">
@@ -311,5 +265,6 @@ export default async function HomePage({ searchParams }: { searchParams: SP }) {
     </div>
   );
 }
+
 
 
