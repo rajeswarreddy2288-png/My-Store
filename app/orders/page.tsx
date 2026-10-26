@@ -1,6 +1,12 @@
-import { currentUser } from "@clerk/nextjs/server";
+import { auth, currentUser } from "@clerk/nextjs/server";
 
 export default async function OrdersPage() {
+  const { userId, redirectToSignIn } = await auth();
+
+  if (!userId) {
+    return redirectToSignIn();
+  }
+
   const user = await currentUser();
   const name =
     user?.firstName ?? user?.primaryEmailAddress?.emailAddress ?? "customer";
