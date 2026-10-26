@@ -103,8 +103,8 @@ export default async function ProductPage({ params }: Props) {
           )}
 
           <div className="mt-6 flex items-start gap-3">
-            <div className="flex-1 [&>button]:w-full [&>button]:py-3">
-              <AddToCartButton product={item} />
+            <div className="flex-1">
+              <AddToCartButton product={{ ...item, sizes: product.sizes }} />
             </div>
             <div className="mt-4">
               <WishlistButton product={item} />
@@ -140,3 +140,4 @@ export default async function ProductPage({ params }: Props) {
     </div>
   );
 }
+

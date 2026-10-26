@@ -2,6 +2,7 @@ import Link from "next/link";
 import { getProducts, getBrands, categories, priceRanges } from "@/lib/products";
 import { formatPrice } from "@/lib/format";
 import ProductCard from "@/components/ProductCard";
+import DealRows from "@/components/DealRows";
 
 const PAGE_SIZE = 24;
 
@@ -159,6 +160,7 @@ export default async function HomePage({ searchParams }: { searchParams: SP }) {
         </>
       )}
 
+      {!hasFilters && current === 1 && <DealRows />}
       <section id="shop" className="scroll-mt-40">
         <form action="/" method="get" className="grid gap-6 lg:grid-cols-[260px_1fr]">
           <details open className="h-fit rounded-lg border bg-white text-sm lg:[&>summary]:hidden">
@@ -306,3 +308,4 @@ export default async function HomePage({ searchParams }: { searchParams: SP }) {
     </div>
   );
 }
+

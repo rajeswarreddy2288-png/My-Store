@@ -55,7 +55,7 @@ export default function CartView() {
               </div>
 
               <div className="flex-1">
-                <p className="font-semibold">{item.name}</p>
+                <p className="font-semibold">{item.name}</p>{item.size && <p className="text-xs text-gray-500">Size: {item.size}</p>}
                 <p className="text-sm text-gray-500">${item.price.toFixed(2)} each</p>
                 <button
                   type="button"
@@ -126,5 +126,6 @@ export default function CartView() {
     </div>
   );
 }
+
 
 

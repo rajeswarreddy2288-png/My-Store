@@ -8,6 +8,7 @@ export type CartItem = {
   price: number;
   color: string;
   image?: string;
+  size?: string;
   quantity: number;
 };
 
@@ -96,4 +97,5 @@ export function useCart() {
   if (!ctx) throw new Error("useCart must be used inside CartProvider");
   return ctx;
 }
+
 

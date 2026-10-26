@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useWishlist } from "@/components/WishlistProvider";
-import AddToCartButton from "@/components/AddToCartButton";
+
 
 export default function WishlistView() {
   const { items, loaded, toggle } = useWishlist();
@@ -47,7 +47,7 @@ export default function WishlistView() {
               <h2 className="font-semibold hover:text-indigo-600">{item.name}</h2>
             </Link>
             <p className="mt-2 text-xl font-bold">${item.price.toFixed(2)}</p>
-            <AddToCartButton product={item} />
+            <Link href={"/products/" + item.id} className="mt-4 block rounded-md bg-indigo-600 py-2 text-center text-sm font-medium text-white hover:bg-indigo-700">View product</Link>
             <button
               type="button"
               onClick={() => toggle(item)}
@@ -61,3 +61,4 @@ export default function WishlistView() {
     </div>
   );
 }
+
