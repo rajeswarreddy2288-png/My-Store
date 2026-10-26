@@ -176,6 +176,7 @@ const products = build();
 export type Filters = {
   q?: string;
   category?: string;
+  sub?: string;
   brands?: string[];
   price?: string;
   discount?: number;
@@ -193,6 +194,7 @@ export async function getProducts(filters: Filters = {}): Promise<Product[]> {
       if (!tokens.every((t) => text.includes(t))) return false;
     }
     if (filters.category && p.category !== filters.category) return false;
+    if (filters.sub && p.subcategory !== filters.sub) return false;
     if (filters.brands && filters.brands.length > 0 && !filters.brands.includes(p.brand)) return false;
     if (range && (p.price < range.min || p.price > range.max)) return false;
     if (filters.discount && p.discount < filters.discount) return false;
@@ -236,3 +238,4 @@ export function getBrands(category?: string): { name: string; count: number }[] 
 export async function getProductById(id: string): Promise<Product | undefined> {
   return products.find((p) => p.id === id);
 }
+

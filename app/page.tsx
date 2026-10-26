@@ -57,6 +57,7 @@ export default async function HomePage({ searchParams }: { searchParams: SP }) {
   const sp = await searchParams;
   const q = one(sp.q);
   const category = one(sp.category);
+  const sub = one(sp.sub);
   const brands = many(sp.brand);
   const price = one(sp.price);
   const discount = one(sp.discount);
@@ -67,6 +68,7 @@ export default async function HomePage({ searchParams }: { searchParams: SP }) {
   const all = await getProducts({
     q,
     category,
+    sub,
     brands,
     price,
     discount: discount ? Number(discount) : undefined,
@@ -79,12 +81,13 @@ export default async function HomePage({ searchParams }: { searchParams: SP }) {
   const start = (current - 1) * PAGE_SIZE;
   const items = all.slice(start, start + PAGE_SIZE);
   const brandList = getBrands(category || undefined);
-  const hasFilters = Boolean(q || category || brands.length || price || discount || rating);
+  const hasFilters = Boolean(q || category || sub || brands.length || price || discount || rating);
 
   function href(p: number) {
     const params = new URLSearchParams();
     if (q) params.set("q", q);
     if (category) params.set("category", category);
+    if (sub) params.set("sub", sub);
     brands.forEach((b) => params.append("brand", b));
     if (price) params.set("price", price);
     if (discount) params.set("discount", discount);
@@ -308,4 +311,5 @@ export default async function HomePage({ searchParams }: { searchParams: SP }) {
     </div>
   );
 }
+
 
